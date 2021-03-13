@@ -28,8 +28,7 @@ void LightingService::init() {
           ->addTasklet(new TimerTasklet(7000))
       , -1)
     );*/
-   //lightingTasklet = new RGBFadeTasklet(5000, 11000);
-   lightingTasklet = new DisplayTasklet("hello world hello world hello world", 5000);
+   lightingTasklet = new RGBFadeTasklet(5000, 11000);
 }
 
 void LightingService::onTick() {

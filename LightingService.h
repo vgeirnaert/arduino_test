@@ -11,7 +11,6 @@ class LightingService : public TickableService {
     void onTick();
   private:
     Tasklet* lightingTasklet;
-    TaskletStatus taskletStatus;
 };
 
 #endif
