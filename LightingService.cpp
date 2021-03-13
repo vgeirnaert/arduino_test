@@ -6,12 +6,13 @@
 #include "TimerTasklet.h"
 #include "BlinkTasklet.h"
 #include "ParallelTasklet.h"
+#include "RGBFade.h"
 
 LightingService::LightingService() {
 }
 
 void LightingService::init() {
-  lightingTasklet = (new ParallelTasklet())
+  /*lightingTasklet = (new ParallelTasklet())
     ->addTasklet(
       new RepeatingTasklet(
         (new SequentialTasklet())
@@ -25,8 +26,8 @@ void LightingService::init() {
           ->addTasklet(new RepeatingTasklet(new BlinkTasklet(2000, 500), 2))
           ->addTasklet(new TimerTasklet(7000))
       , -1)
-    );
-   
+    );*/
+   lightingTasklet = new RGBFade(5000, 11000);
 }
 
 void LightingService::onTick() {

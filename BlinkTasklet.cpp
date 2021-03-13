@@ -4,13 +4,13 @@
 BlinkTasklet::BlinkTasklet(int timeOnMillis, int timeOffMillis) {
   this->timeOnMillis = timeOnMillis;
   this->timeOffMillis = timeOffMillis;
-  pinMode(13, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void BlinkTasklet::start() {
   setStatus(ACTIVE);
   startTimeMillis = millis();
-  digitalWrite(13, HIGH);
+  digitalWrite(LED_BUILTIN, HIGH);
   isOn = true;
 }
 
@@ -20,7 +20,7 @@ void BlinkTasklet::run() {
   }
   
   if(isOn && millis() - startTimeMillis > timeOnMillis) {
-    digitalWrite(13, LOW);
+    digitalWrite(LED_BUILTIN, LOW);
     isOn = false;
   }
 
