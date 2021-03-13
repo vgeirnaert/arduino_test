@@ -1,11 +1,11 @@
 #include "Arduino.h"
-#include "RGBFade.h"
+#include "RGBFadeTasklet.h"
 
 #define BLUE_PIN 3
 #define GREEN_PIN 5
 #define RED_PIN 6
 
-RGBFade::RGBFade(int pulseTimeMillis, int rainbowTimeMillis) {
+RGBFadeTasklet::RGBFadeTasklet(int pulseTimeMillis, int rainbowTimeMillis) {
   this->pulseTimeMillis = pulseTimeMillis;
   this->rainbowTimeMillis = rainbowTimeMillis;
 
@@ -14,13 +14,13 @@ RGBFade::RGBFade(int pulseTimeMillis, int rainbowTimeMillis) {
   pinMode(RED_PIN, OUTPUT);
 }
 
-void RGBFade::start() {
+void RGBFadeTasklet::start() {
   Serial.print("starting RGBFade" );Serial.println();
   setStatus(ACTIVE);
   startTime = millis();
 }
 
-void RGBFade::run() {
+void RGBFadeTasklet::run() {
 	unsigned long elapsedTime = millis() - startTime;
 	RGB currentColour = getColour(elapsedTime);
 	float fadeFactor = getFadeFactor(elapsedTime);
@@ -30,7 +30,7 @@ void RGBFade::run() {
 	analogWrite(BLUE_PIN, (int)(currentColour.b * fadeFactor));
 }
 
-float RGBFade::getFadeFactor(unsigned long time) {
+float RGBFadeTasklet::getFadeFactor(unsigned long time) {
 	if(this->pulseTimeMillis == 0) {
 		return 1.0;
 	}
@@ -40,7 +40,7 @@ float RGBFade::getFadeFactor(unsigned long time) {
 	return ((fade / 2) - reductionFactor) * 2;
 }
 
-RGB RGBFade::getColour(unsigned long time) {
+RGB RGBFadeTasklet::getColour(unsigned long time) {
 	float rainbowPercentage = (float)(time % this->rainbowTimeMillis) / this->rainbowTimeMillis;
 	int colorRangeValue = rainbowPercentage * 255 * 6;
 

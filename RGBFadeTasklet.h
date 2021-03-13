@@ -9,9 +9,9 @@ struct RGB {
 	byte b;
 };
 
-class RGBFade : public Tasklet {
+class RGBFadeTasklet : public Tasklet {
   public:
-    RGBFade(int pulseTimeMillis, int rainbowTimeMillis);
+    RGBFadeTasklet(int pulseTimeMillis, int rainbowTimeMillis);
     void start();
     void run();
   private:
