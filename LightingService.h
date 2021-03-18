@@ -8,7 +8,7 @@ class LightingService : public TickableService {
   public:
     LightingService();
     void init();
-    void onTick();
+    void onTick(Context context);
   private:
     Tasklet* lightingTasklet;
 };

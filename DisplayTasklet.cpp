@@ -8,13 +8,14 @@ DisplayTasklet::DisplayTasklet(String text, int timeMillis) {
 	this->timeMillis = timeMillis;
 }
 
+DisplayTasklet::~DisplayTasklet() {
+	lcd.begin(16, 2);
+}
+
 void DisplayTasklet::start() {
 	setStatus(ACTIVE);
-	lcd.begin(16, 2);
-	lcd.setCursor(0, 0);
-    lcd.print(text);
+	write();
     startTime = millis();
-    Serial.print(text);Serial.println();
 }
 
 void DisplayTasklet::run() {
@@ -22,4 +23,16 @@ void DisplayTasklet::run() {
 		lcd.clear();
 		setStatus(FINISHED);
 	}
+}
+
+void DisplayTasklet::setText(String text) {
+	this->text = text;
+	write();
+}
+
+void DisplayTasklet::write() {
+	lcd.clear();
+	lcd.setCursor(0, 0);
+    lcd.print(text);
+    Serial.print(text);Serial.println();
 }

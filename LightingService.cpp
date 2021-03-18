@@ -13,25 +13,27 @@ LightingService::LightingService() {
 }
 
 void LightingService::init() {
-  lightingTasklet = (new ParallelTasklet())
-    ->addTasklet(
-      new RepeatingTasklet(
-        (new SequentialTasklet())
-          ->addTasklet(new RepeatingTasklet(new BlinkTasklet(400, 200), 3))
-          ->addTasklet(new TimerTasklet(3000))
-      , -1)
-    )->addTasklet(
-      new RepeatingTasklet(
-        (new SequentialTasklet())
-          ->addTasklet(new RepeatingTasklet(new BlinkTasklet(2000, 500), 2))
-          ->addTasklet(new TimerTasklet(7000))
-      , -1)
-    )->addTasklet(
-	  new RGBFadeTasklet(5000, 11000)
-    );
+//  lightingTasklet = (new ParallelTasklet())
+//    ->addTasklet(
+//      new RepeatingTasklet(
+//        (new SequentialTasklet())
+//          ->addTasklet(new RepeatingTasklet(new BlinkTasklet(400, 200), 3))
+//          ->addTasklet(new TimerTasklet(3000))
+//      , -1)
+//    )->addTasklet(
+//      new RepeatingTasklet(
+//        (new SequentialTasklet())
+//          ->addTasklet(new RepeatingTasklet(new BlinkTasklet(2000, 500), 2))
+//          ->addTasklet(new TimerTasklet(7000))
+//      , -1)
+//    )->addTasklet(
+//	  new RGBFadeTasklet(5000, 11000)
+//    );
+
+	lightingTasklet = new RGBFadeTasklet(5000, 11000);
 }
 
-void LightingService::onTick() {
+void LightingService::onTick(Context context) {
   if(lightingTasklet->getStatus() == FINISHED) {
     return;
   }
